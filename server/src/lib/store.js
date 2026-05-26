@@ -10,6 +10,7 @@ const modelFile = path.join(dataDir, "registry.json");
 const benchmarkFile = path.join(dataDir, "benchmarks.json");
 const runFile = path.join(dataDir, "runs.json");
 const ollamaBaseUrl = process.env.OLLAMA_BASE_URL || "http://localhost:11434";
+const isRender = process.env.RENDER === "true";
 
 async function ensureFile(filePath, fallbackValue) {
   try {
@@ -32,6 +33,29 @@ async function writeJson(filePath, value) {
 }
 
 export async function getModels() {
+  if (isRender) {
+    if (!process.env.GOOGLE_API_KEY && !process.env.GEMINI_API_KEY) {
+      return [];
+    }
+
+    return [
+      {
+        id: "gemma4:31b",
+        name: "gemma4:31b",
+        provider: "google",
+        model: "gemma4:31b",
+        isFree: true,
+        supportsJson: true,
+        supportsLongContext: false,
+        bestFor: [],
+        contextNotes: "Routed through Google Gemini API",
+        status: "online",
+        size: null,
+        modifiedAt: null
+      }
+    ];
+  }
+
   try {
     const res = await fetch(`${ollamaBaseUrl}/api/tags`);
     if (!res.ok) {

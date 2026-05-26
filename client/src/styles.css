@@ -359,6 +359,8 @@ button {
 
 .mini-select {
   color-scheme: dark;
+  min-width: 240px;
+  flex: 0 0 auto;
 }
 
 .mini-select option {

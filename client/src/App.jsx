@@ -113,6 +113,17 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (!models.length) return;
+    const hasSelectedModel = models.some((model) => model.id === selectedModelId);
+    if (!hasSelectedModel) {
+      const fallbackModelId = models.find((model) => model.provider === "ollama")?.id || models[0]?.id || "";
+      if (fallbackModelId && fallbackModelId !== selectedModelId) {
+        setSelectedModelId(fallbackModelId);
+      }
+    }
+  }, [models, selectedModelId]);
+
+  useEffect(() => {
     if (chats.length) {
       saveChats(chats);
     }

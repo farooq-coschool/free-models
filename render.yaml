@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: free-models
+    runtime: docker
+    plan: free
+    healthCheckPath: /healthz
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SERVE_CLIENT
+        value: "true"
+      - key: GOOGLE_MODEL_FOR_GEMMA4
+        value: "gemini-2.5-flash"

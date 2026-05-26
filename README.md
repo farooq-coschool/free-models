@@ -41,6 +41,19 @@ Production notes:
 - Keep API keys in environment variables, not in the codebase.
 - Put your real Gemini key in a local `.env` file, not in `.env.example`.
 
+## Render deployment
+
+Render can host this repo as a Docker web service and give you a public `onrender.com` URL. Render web services must bind to `0.0.0.0`, the default expected port is `10000`, and Docker services are supported directly from your repo's Dockerfile or `render.yaml`. ([render.com](https://render.com/docs/web-services/?utm_source=openai)) ([render.com](https://render.com/docs/docker/?utm_source=openai)) ([render.com](https://render.com/docs/blueprint-spec/?utm_source=openai))
+
+For Render:
+
+1. Connect the GitHub repo to a Render web service.
+2. Use the Docker runtime.
+3. Add `GOOGLE_API_KEY` in Render environment variables.
+4. Deploy the `main` branch.
+
+On Render, the app will expose the Google-backed `gemma4:31b` option, because local Ollama models are not available inside Render's hosted container environment. That follows from the app's local-Ollama design and Render's container hosting model. 
+
 ## Oracle deployment checklist
 
 1. Create an Oracle Cloud Always Free compute instance.
