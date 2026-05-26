@@ -1,0 +1,29 @@
+[
+  {
+    "id": "bench_mcq_photosynthesis",
+    "taskType": "mcq_json",
+    "prompt": "Create 10 MCQs on photosynthesis for class 7 in JSON with an answer key.",
+    "expectedSchema": {
+      "questions": true,
+      "answerKey": true
+    },
+    "gradeLevel": 7,
+    "subject": "Science"
+  },
+  {
+    "id": "bench_lesson_fractions",
+    "taskType": "lesson_plan",
+    "prompt": "Write a compact lesson plan for fractions for grade 6 with examples and practice.",
+    "expectedSchema": null,
+    "gradeLevel": 6,
+    "subject": "Math"
+  },
+  {
+    "id": "bench_research_indus",
+    "taskType": "research_brief",
+    "prompt": "Summarize the Indus Valley Civilization using a neutral research brief structure.",
+    "expectedSchema": null,
+    "gradeLevel": 8,
+    "subject": "History"
+  }
+]

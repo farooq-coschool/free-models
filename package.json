@@ -1,0 +1,10 @@
+{
+  "name": "edu-model-console",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:server": "node server/src/index.js",
+    "dev:client": "vite --config client/vite.config.js",
+    "dev": "node server/src/index.js"
+  }
+}

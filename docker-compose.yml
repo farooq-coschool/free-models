@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:4000"
+    environment:
+      PORT: 4000
+      SERVE_CLIENT: "true"
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      OLLAMA_HEALTH_URL: http://host.docker.internal:11434/api/tags
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
