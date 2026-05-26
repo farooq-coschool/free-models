@@ -34,10 +34,6 @@ async function writeJson(filePath, value) {
 
 export async function getModels() {
   if (isRender) {
-    if (!process.env.GOOGLE_API_KEY && !process.env.GEMINI_API_KEY) {
-      return [];
-    }
-
     return [
       {
         id: "gemma4:31b",
@@ -48,8 +44,10 @@ export async function getModels() {
         supportsJson: true,
         supportsLongContext: false,
         bestFor: [],
-        contextNotes: "Routed through Google Gemini API",
-        status: "online",
+        contextNotes: process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY
+          ? "Routed through Google Gemini API"
+          : "Set GOOGLE_API_KEY in Render to enable this model",
+        status: process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY ? "online" : "needs_key",
         size: null,
         modifiedAt: null
       }

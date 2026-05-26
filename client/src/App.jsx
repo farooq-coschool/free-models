@@ -615,16 +615,21 @@ export default function App() {
                   <select
                     className="mini-select"
                     value={selectedModelId}
+                    disabled={models.length === 0}
                     onChange={(e) => {
                       setSelectedModelId(e.target.value);
                       updateActiveChat({ modelId: e.target.value });
                     }}
                   >
-                    {models.map((model) => (
-                      <option key={model.id} value={model.id}>
-                        {model.provider} / {model.id}
-                      </option>
-                    ))}
+                    {models.length === 0 ? (
+                      <option value="">Loading models...</option>
+                    ) : (
+                      models.map((model) => (
+                        <option key={model.id} value={model.id}>
+                          {model.provider} / {model.id}
+                        </option>
+                      ))
+                    )}
                   </select>
 
                   <select
