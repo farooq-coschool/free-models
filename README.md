@@ -35,8 +35,11 @@ Production notes:
 
 - The container serves the built React client through Express.
 - The app currently uses local Ollama models only.
+- The `gemma4:31b` model is routed through the Google Gemini API when `GOOGLE_API_KEY` is set.
 - If you deploy on Oracle Cloud, run the container on an Always Free VM.
 - Ollama must be running on the same VM. The container uses `host.docker.internal` to reach it.
+- Keep API keys in environment variables, not in the codebase.
+- Put your real Gemini key in a local `.env` file, not in `.env.example`.
 
 ## Oracle deployment checklist
 

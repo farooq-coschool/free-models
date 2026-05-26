@@ -12,6 +12,7 @@ import {
 } from "./lib/store.js";
 import { evaluateResponse, isJsonLike } from "./lib/evaluator.js";
 import { routeTask } from "./lib/router.js";
+import { runGoogle } from "./adapters/google.js";
 import { runOllama } from "./adapters/ollama.js";
 
 dotenv.config();
@@ -69,9 +70,12 @@ app.post("/api/run", async (req, res) => {
     const startedAt = Date.now();
     const safeMaxTokens = Math.min(64000, Math.max(1, Number(maxTokens) || 4096));
     let result;
+    const effectiveProvider = model === "gemma4:31b" ? "google" : provider;
 
-    if (provider === "ollama") {
+    if (effectiveProvider === "ollama") {
       result = await runOllama({ model, messages, temperature, maxTokens: safeMaxTokens, responseFormat });
+    } else if (effectiveProvider === "google") {
+      result = await runGoogle({ model, messages, temperature, maxTokens: safeMaxTokens, responseFormat });
     } else {
       return res.status(400).json({ error: "Only local Ollama models are supported" });
     }
@@ -79,7 +83,7 @@ app.post("/api/run", async (req, res) => {
     const run = {
       id: `run_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
       benchmarkId,
-      provider,
+      provider: effectiveProvider,
       model,
       prompt,
       messages,

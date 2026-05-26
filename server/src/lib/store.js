@@ -44,13 +44,16 @@ export async function getModels() {
     const localModels = models.map((model) => ({
       id: model.name,
       name: model.name,
-      provider: "ollama",
+      provider: model.name === "gemma4:31b" ? "google" : "ollama",
       model: model.name,
       isFree: true,
       supportsJson: true,
       supportsLongContext: false,
       bestFor: [],
-      contextNotes: `Local Ollama model${model.details?.family ? ` - ${model.details.family}` : ""}`,
+      contextNotes:
+        model.name === "gemma4:31b"
+          ? "Routed through Google Gemini API"
+          : `Local Ollama model${model.details?.family ? ` - ${model.details.family}` : ""}`,
       status: "online",
       size: model.size || null,
       modifiedAt: model.modified_at || null
